@@ -15,29 +15,30 @@ class App extends Component {
     ],
   }
 
-  scoreHandler = () => {
+  clickHandler = () => {
     this.setState({ score: this.state.score + 1 })
+    console.log(this.state.score);
+
   }
 
   render() {
-    const circles =  
+    const circles =
       this.state.circles.map((circle) => {
         return (
-        <div>
-          <p>test</p>
-          <Circle key={circle.key}
-        />
-        </div>
-        )  
+          <div>
+            <Circle key={circle.key}
+              click={this.clickHandler}
+            />
+          </div>
+        )
       }
       )
-      console.log(circles);
-    
+
     return (
       <div className="App">
         <h1>Speedgame</h1>
         <div className="score-container">
-          <p id="scoreDisplay">{this.state.score}</p></div>
+          <p id="scoreDisplay">Your score: {this.state.score}</p></div>
         <div className="circle-container">
           {circles}
         </div>
