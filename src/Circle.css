@@ -1,0 +1,9 @@
+.circle {
+    position: relative;
+    background-image: url("/public/images/planet1.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    height: 12vw;
+    width: 12vw;
+  }
