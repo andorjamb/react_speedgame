@@ -4,7 +4,11 @@ import React, { Component } from 'react';
 import Circle from './Circle';
 import GameOver from './GameOver';
 
-function getRandom() { return Math.floor(Math.random() * 4) };
+import zap from './audio/zap.mp3';
+import endtheme from './audio/endtheme.mp3'
+
+const clickSound = new Audio(zap);
+const music = new Audio(endtheme);
 
 class App extends Component {
 
@@ -13,31 +17,51 @@ class App extends Component {
     active: undefined,
     circles: [1, 2, 3, 4],
     clicked: 0,
-    pace: 1000,
+    pace: 1800,
     gameOver: false,
     rounds: 0,
   }
   timer;
+  clickPlay = () => {
+    if (clickSound.paused) {
+      clickSound.play()
 
-  clickHandler = (i) => {
-    this.setState({ score: this.state.score + 1, });
-    if (this.state.active !== i) {
-      this.stopGame();
-      return;
+    } else {
+      clickSound.currentTime = 0;
     }
   }
 
-  stopGame() {
+  clickHandler = (i) => {
+    this.clickPlay();
+    if (this.state.active === i) {
+      this.setState(
+        { score: this.state.score + 1 })
+    }
+    else if ((this.state.active !== i) && (this.state.rounds >= 3)) {
+      this.stopGame();
+      return;
+    }
+    else if (this.state.active !== i) {
+      this.setState({ rounds: this.state.rounds + 1 })
+    }
+
+  }
+
+
+  stopGame = () => {
     console.log("game ended.");
+    music.pause();
     clearTimeout(this.timer);
-    window.location.reload();
-    /*  this.setState({
-       gameOver: !this.state.gameOver
-     }) */
+    this.setState({
+      gameOver: !this.state.gameOver
+
+    })
   }
 
   startGame = () => {
     console.log('Game started');
+    music.play();
+    music.loop = true;
     this.getActive();
   }
 
@@ -47,23 +71,21 @@ class App extends Component {
       return;
     }
     let nextActive;
-    do { nextActive = getRandom() }
+    do { nextActive = Math.floor(Math.random() * 4) }
     while (nextActive === this.state.active);
 
     this.setState({ active: nextActive });
     this.setState({ pace: this.state.pace * 0.95 });
-    this.setState({ rounds: 0 });
     this.timer = setTimeout(this.getActive, this.state.pace);
   }
 
   render() {
-
-    const mapCircles = this.state.circles.map((circle, i) => {
+    const circles = this.state.circles.map((circle, i) => {
       return (
-        <Circle key={i} id={i + 1}
+        <div className="circle-container"> <Circle key={i} id={i + 1}
           click={() => { this.clickHandler(i) }}
           active={this.state.active === i}
-        />
+        /></div>
 
       )
     });
@@ -73,7 +95,7 @@ class App extends Component {
         <div className="score-container">
           <p id="scoreDisplay">Your score: {this.state.score}</p></div>
         <div className="circle-container">
-          {mapCircles}
+          {circles}
         </div>
         {this.state.gameOver && <GameOver close={this.stopGame} score={this.state.score} />}
         <div className="button-container">

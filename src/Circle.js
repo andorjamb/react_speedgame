@@ -5,7 +5,8 @@ const Circle = (props) => {
     return (
         <div className={`circle ${props.active ? 'active' : ''}`}
             onClick={props.click}
-        >{props.id}
+            active={props.active}
+        >
         </div>
     );
 };

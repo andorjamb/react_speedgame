@@ -1,0 +1,43 @@
+.gameOver {
+    display: block;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    height: 30vh;
+    width: 30vw;
+    color: black;
+    padding: 2rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+.overlay {
+    /*class to obscure page background */
+    position: fixed;
+    background: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(14, 14, 41, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0.9;
+}
+
+.gameOver p {
+    margin-top: 2rem;
+}
+
+.close {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 2px 4px;
+    color: black;
+    border: none;
+    font-weight: 900;
+}
