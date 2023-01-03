@@ -36,8 +36,8 @@ class App extends Component {
   }
 
   clickHandler = (i) => {
-    this.clickPlay();
     if (this.state.active === i && this.state.gameOn === true) {
+      this.clickPlay();
       this.setState(
         { score: this.state.score + 1 })
     }
@@ -47,6 +47,7 @@ class App extends Component {
       return;
     }
     else if (this.state.active !== i) {
+      this.clickPlay();
       this.setState({ rounds: this.state.rounds + 1 })
     }
 
