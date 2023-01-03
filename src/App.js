@@ -5,10 +5,12 @@ import Circle from './Circle';
 import GameOver from './GameOver';
 
 import zap from './audio/zap.mp3';
-import endtheme from './audio/endtheme.mp3'
+import endtheme from './audio/endtheme.mp3';
+import gameover from './audio/gameOver.mp3';
 
 const clickSound = new Audio(zap);
 const music = new Audio(endtheme);
+const endGame = new Audio(gameover)
 
 class App extends Component {
 
@@ -35,11 +37,12 @@ class App extends Component {
 
   clickHandler = (i) => {
     this.clickPlay();
-    if (this.state.active === i) {
+    if (this.state.active === i && this.state.gameOn === true) {
       this.setState(
         { score: this.state.score + 1 })
     }
     else if ((this.state.active !== i) && (this.state.rounds >= 3)) {
+      endGame.play();
       this.stopGame();
       return;
     }
@@ -55,7 +58,7 @@ class App extends Component {
     music.pause();
     clearTimeout(this.timer);
     this.setState({
-      gameOver: !this.state.gameOver
+      gameOver: !this.state.gameOver, pace: 1800
     })
   }
 
@@ -98,7 +101,7 @@ class App extends Component {
           <p id="scoreDisplay">Your score: {this.state.score}</p></div>
         <main>  <div className="circle-container">
           {circles}
-        </div>    {this.state.gameOver && <GameOver close={this.stopGame} score={this.state.score} />} <div className="button-container">
+        </div>    {this.state.gameOver && !this.state.gameOn && <GameOver close={this.stopGame} score={this.state.score} />} <div className="button-container">
             {!this.state.gameOn && <button id="startButton" onClick={this.startGame}>Start Game</button>}
             {this.state.gameOn && <button id="stopButton" onClick={this.stopGame}>Stop Game</button>}
           </div></main>
