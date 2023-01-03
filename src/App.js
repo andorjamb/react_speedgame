@@ -41,12 +41,12 @@ class App extends Component {
       this.setState(
         { score: this.state.score + 1 })
     }
-    else if ((this.state.active !== i) && (this.state.rounds >= 3)) {
+    else if ((this.state.active !== i) && (this.state.rounds >= 3) && (this.state.gameOn === true)) {
       endGame.play();
       this.stopGame();
       return;
     }
-    else if (this.state.active !== i) {
+    else if ((this.state.active !== i) && (this.state.gameOn === true)) {
       this.clickPlay();
       this.setState({ rounds: this.state.rounds + 1 })
     }
@@ -102,7 +102,7 @@ class App extends Component {
           <p id="scoreDisplay">Your score: {this.state.score}</p></div>
         <main>  <div className="circle-container">
           {circles}
-        </div>    {this.state.gameOver && !this.state.gameOn && <GameOver close={this.stopGame} score={this.state.score} />} <div className="button-container">
+        </div>    {this.state.gameOver && <GameOver close={this.stopGame} score={this.state.score} />} <div className="button-container">
             {!this.state.gameOn && <button id="startButton" onClick={this.startGame}>Start Game</button>}
             {this.state.gameOn && <button id="stopButton" onClick={this.stopGame}>Stop Game</button>}
           </div></main>
