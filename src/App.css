@@ -5,7 +5,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Roboto Mono";
-  margin: 0;
+  margin-top: 0;
+  margin: auto;
   padding-top: 0;
   height: 100vh;
 }
@@ -53,9 +54,14 @@ button {
   background-color: red;
 }
 
+main {
+  margin: auto;
+  max-width: 1100px;
+
+}
+
 .circle-container {
   display: flex;
-  max-width: 1100px;
   justify-content: space-around;
   align-items: center;
   height: 40vh;

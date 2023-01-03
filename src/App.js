@@ -19,7 +19,9 @@ class App extends Component {
     clicked: 0,
     pace: 1800,
     gameOver: false,
+    gameOn: false,
     rounds: 0,
+
   }
   timer;
   clickPlay = () => {
@@ -49,17 +51,17 @@ class App extends Component {
 
 
   stopGame = () => {
-    console.log("game ended.");
+    this.setState({ gameOn: false });
     music.pause();
     clearTimeout(this.timer);
     this.setState({
       gameOver: !this.state.gameOver
-
     })
   }
 
   startGame = () => {
-    console.log('Game started');
+    this.setState({ score: 0 },)
+    this.setState({ gameOn: true })
     music.play();
     music.loop = true;
     this.getActive();
@@ -83,7 +85,7 @@ class App extends Component {
     const circles = this.state.circles.map((circle, i) => {
       return (
         <div className="circle-container"> <Circle key={i} id={i + 1}
-          click={() => { this.clickHandler(i) }}
+          click={() => this.clickHandler(i)}
           active={this.state.active === i}
         /></div>
 
@@ -94,14 +96,12 @@ class App extends Component {
         <h1>Speedgame</h1>
         <div className="score-container">
           <p id="scoreDisplay">Your score: {this.state.score}</p></div>
-        <div className="circle-container">
+        <main>  <div className="circle-container">
           {circles}
-        </div>
-        {this.state.gameOver && <GameOver close={this.stopGame} score={this.state.score} />}
-        <div className="button-container">
-          <button id="startButton" onClick={this.startGame}>Start Game</button>
-          <button id="stopButton" onClick={this.stopGame}>Stop Game</button>
-        </div>
+        </div>    {this.state.gameOver && <GameOver close={this.stopGame} score={this.state.score} />} <div className="button-container">
+            {!this.state.gameOn && <button id="startButton" onClick={this.startGame}>Start Game</button>}
+            {this.state.gameOn && <button id="stopButton" onClick={this.stopGame}>Stop Game</button>}
+          </div></main>
       </div>
     );
   }
