@@ -22,6 +22,7 @@ class App extends Component {
     gameOn: false,
     misses: 0,
     nextIncrement: 5,
+    canUpdateScore: true,
   };
   timer;
   makeZapSound = () => {
@@ -36,9 +37,10 @@ class App extends Component {
 
   clickHandler = (i) => {
     if (this.state.gameOn === true) {
-      if (this.state.active === i) {
+      if (this.state.active === i && this.state.canUpdateScore) {
         this.makeZapSound();
-        this.setState({ score: this.state.score + 1 }); // TOFIX
+        this.setState({ score: this.state.score + 1 });
+        this.setState({ canUpdateScore: false });
 
         if (this.state.misses > 0) {
           this.setState({ misses: this.state.misses - 1 });
@@ -62,6 +64,7 @@ class App extends Component {
   };
 
   startGame = () => {
+    this.setState({ canUpdateScore: true });
     this.setState({ score: 0 });
     this.setState({ nextIncrement: 5 });
     this.setState({ misses: 0 });
@@ -81,8 +84,9 @@ class App extends Component {
     do {
       nextActive = Math.ceil(Math.random() * 4);
     } while (nextActive === this.state.active);
-
+    
     this.setState({ active: nextActive });
+    this.setState({ canUpdateScore: true });
     if (this.state.score > this.state.nextIncrement) {
       this.setState({ pace: this.state.pace * 0.9 });
       this.setState({ nextIncrement: this.state.nextIncrement + 5 });
