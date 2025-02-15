@@ -1,9 +1,6 @@
 # A Speed game created with React
 
-[badge]()
-
-
-[![Validate Push HTML](https://github.com/andorjamg/react_speedgame/actions/workflows/main.yml/badge.svg)](https://github.com/andorjamb/react_speedgame/actions/workflows/main.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/978c4af3-33ca-4ddb-876f-84ddfc7d5b87/deploy-status)](https://app.netlify.com/sites/alien-speedgame/deploys)
 
 View live demo at [alien-speedgame.netlify.app](https://alien-speedgame.netlify.app)
 
